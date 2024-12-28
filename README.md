@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TIFF Volume Viewer
 
-## Getting Started
+A web-based TIFF image viewer built with Rust, WebAssembly, and Next.js that supports both 8-bit and 16-bit TIFF files.
 
-First, run the development server:
+## Features
 
+- Load and display TIFF files directly in the browser
+- Support for both 8-bit and 16-bit TIFF images
+- Camera controls:
+  - Left mouse button drag: Orbit/rotate the view
+  - Right mouse button drag: Pan the view
+  - Mouse wheel: Zoom in/out
+- Automatic image orientation correction
+- Memory-efficient image processing
+
+## Project Structure
+
+- `src/rust/` - Rust source code for image processing and rendering
+  - `lib.rs` - Main WASM module and volume data handling
+  - `camera.rs` - Camera controls implementation
+  - `renderer.rs` - Volume rendering engine
+  - `tiff_loader.rs` - TIFF file loading and processing
+  - `transfer_function.rs` - Color and intensity mapping
+
+- `src/components/` - React components
+  - `viewer/` - TIFF viewer interface
+
+## Technology Stack
+
+- Rust - Core image processing and rendering
+- WebAssembly - Browser integration
+- Next.js - Web framework
+- React - UI components
+- Tailwind CSS - Styling
+
+## Development
+
+1. Install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Build the WebAssembly module:
+```bash
+cd src/rust
+wasm-pack build --target web --out-dir ../../public/pkg
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Usage
 
-## Learn More
+1. Open the application in a web browser
+2. Click "Load Image" to select a TIFF file
+3. Use mouse controls to interact with the image:
+   - Drag with left mouse button to rotate
+   - Drag with right mouse button to pan
+   - Use mouse wheel to zoom
 
-To learn more about Next.js, take a look at the following resources:
+## Requirements
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Node.js 16 or later
+- Rust toolchain with wasm-pack
+- Web browser with WebAssembly support
